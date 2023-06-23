@@ -95,10 +95,14 @@ namespace WindowsFormsAppCalculator
                             MessageBox.Show("Ошибка: Деление на ноль недопустимо.");
                             return;
                         }
+                        else
+                        {
+                            textDisplay1.Text = (result / Double.Parse(textDisplay1.Text)).ToString();
+                            RtBoxDisplayHistory.AppendText($"{firstNum}{secondNum} = {textDisplay1.Text} \n");
+                            break;
+                        }
 
-                        textDisplay1.Text = (result / Double.Parse(textDisplay1.Text)).ToString();
-                        RtBoxDisplayHistory.AppendText($"{firstNum}{secondNum} = {textDisplay1.Text} \n");
-                        break;
+                        
 
                     default: textDisplay2.Text = $"{textDisplay1.Text} = ";
                         break;
@@ -168,10 +172,14 @@ namespace WindowsFormsAppCalculator
                         MessageBox.Show("Ошибка: Извлечение квадратного корня из отрицательного числа недопустимо.");
                         return;
                     }
+                    else
+                    {
+                        textDisplay2.Text = $"√({textDisplay1.Text})";
+                        textDisplay1.Text = Convert.ToString(Math.Sqrt(Double.Parse(textDisplay1.Text)));
+                        break;
+                    }
 
-                    textDisplay2.Text = $"√({textDisplay1.Text})";
-                    textDisplay1.Text = Convert.ToString(Math.Sqrt(Double.Parse(textDisplay1.Text)));
-                    break;
+                    
 
                 case "x^2":
                     textDisplay2.Text = $"({textDisplay1.Text})^2";
@@ -196,7 +204,15 @@ namespace WindowsFormsAppCalculator
                     break;
             }
 
-            RtBoxDisplayHistory.AppendText($"{textDisplay2.Text} = {textDisplay1.Text} \n");
+            if (double.Parse(textDisplay1.Text) < 0)
+            {
+                RtBoxDisplayHistory.AppendText("");
+            }
+            else
+            {
+                RtBoxDisplayHistory.AppendText($"{textDisplay2.Text} = {textDisplay1.Text} \n");
+            }
+                
         }
 
         //кнопка выхода
